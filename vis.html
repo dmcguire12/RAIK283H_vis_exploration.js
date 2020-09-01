@@ -25,24 +25,97 @@
   </p>
 
   <div id="mynetwork">
-    <div class="vis-network" tabindex="900" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"><canvas style="position: relative; touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;" width="600" height="400"></canvas></div>
+    <div class="vis-network" tabindex="900"
+      style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;">
+      <canvas
+        style="position: relative; touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"
+        width="600" height="400"></canvas></div>
   </div>
 
   <script type="text/javascript">
     // create an array with nodes
     var nodes = new vis.DataSet([{
       id: 1,
-      label: 'Node 1',
+      label: 'Justin Morrow',
+      color: {
+        background: 'yellow',
+        border: 'orange',
+        highlight: {
+          background: 'yellow',
+          border: 'orange',
+        },
+      },
     }, {
       id: 2,
-      label: 'Node 2',
-    }, ]);
+      label: 'Devin McGuire',
+      color: {
+        background: 'yellow',
+        border: 'orange',
+        highlight: {
+          background: 'yellow',
+          border: 'orange',
+        },
+      },
+    }, {
+      id: 3,
+      label: 'Michael Kelly',
+    }, {
+      id: 4,
+      label: 'Dan Stara',
+    }, {
+      id: 5,
+      label: 'Parker Miller',
+    }, {
+      id: 6,
+      label: 'Anna Krueger',
+    }, {
+      id: 7,
+      label: 'Kally Karkazis',
+    }, {
+      id: 8,
+      label: 'Sophie Hellebusch',
+    }, {
+      id: 9,
+      label: 'Nicole Serpico',
+    }, {
+      id: 10,
+      label: 'Cole Johnson',
+    },]);
 
     // create an array with edges
     var edges = new vis.DataSet([{
+      id: 1,
       from: 1,
       to: 2
-    }, ]);
+    }, {
+      id: 2,
+      from: 2,
+      to: 3
+    }, {
+      id: 3,
+      from: 3,
+      to: 4
+    }, {
+      id: 4,
+      from: 4,
+      to: 5
+    }, {
+      id: 5,
+      from: 6,
+      to: 8
+    }, {
+      id: 6,
+      from: 7,
+      to: 8
+    }, {
+      id: 7,
+      from: 6,
+      to: 9
+    }, {
+      id: 8,
+      from: 7,
+      to: 9
+    },]);
 
     // create a network
     var container = document.getElementById('mynetwork');
@@ -50,8 +123,29 @@
       nodes: nodes,
       edges: edges
     };
-    var options = {};
+    var options = { nodes: { color: { background: 'red', border: 'black', highlight: {background: 'red', border: 'black',}}, shape: 'box' } };
     var network = new vis.Network(container, data, options);
+
+    //print Devin's roommates' ids
+    var items = edges.get({
+      fields: ['from'],
+      filter: function (item) {
+        return (item.to === 2);
+      }
+    });
+    for (let i = 0; i < items.length; i++){
+      console.log(items[i].from);
+    }
+
+    items = edges.get({
+      fields: ['to'],
+      filter: function (item) {
+        return (item.from === 2);
+      }
+    });
+    for (let i = 0; i < items.length; i++){
+      console.log(items[i].to);
+    }
   </script>
 
 
